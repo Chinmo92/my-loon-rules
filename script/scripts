@@ -1,6 +1,13 @@
+#!name=小红书去广告
+#!desc=移除视频
+#!tag=去视频信息流
+#!icon=https://imgtolinkx.com/i/CO0eIFoS
+
+
 [Rewrite]
-http-response-jq ^https:\/\/so\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/notes '.data.items |= map(select(.note?.type == "normal"))' reject
-http-response-jq ^https:\/\/rec\.xiaohongshu\.com\/api\/sns\/v\d+\/homefeed '.data |= map(select(.type == "normal"))' reject
+^https:\/\/so\.xiaohongshu\.com\/api\/sns\/v\d+\/search\/notes response-body-json-jq '.data.items |= map(select(.note?.type == "normal"))'
+^https:\/\/rec\.xiaohongshu\.com\/api\/sns\/v\d+\/homefeed response-body-json-jq '.data |= map(select(.type == "normal"))'
+
 
 
 [MITM]
