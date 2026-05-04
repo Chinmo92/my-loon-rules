@@ -1,5 +1,7 @@
 
 # Emby 规则
+#DOMAIN,
+
 
 # HG
 DOMAIN,hgemby.qzz.io
@@ -31,7 +33,7 @@ DOMAIN,play.chilledmelon.com
 
 # 起点站
 DOMAIN,test.28.al
-
+DOMAIN,test.startspoint.com
 
 #Forward
 DOMAIN,fluxapi.vvebo.vip
