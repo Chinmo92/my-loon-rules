@@ -2,56 +2,44 @@
 
 [rewrite_local]
 
-# 有道词典自动抓包
-^https:\/\/dict\.youdao\.com\/.* url script-request-header https://raw.githubusercontent.com/你的用户名/你的仓库/main/ydcd.js
+^https:\/\/dict\.youdao\.com\/.* url script-request-header https://raw.githubusercontent.com/Chinmo92/iOSRuleScript/main/Quantumult%20X/Scripts/ydcd.js
 
 [mitm]
+
 hostname = dict.youdao.com
 
 ******************************/
 
-const $ = new Env("有道词典");
-const md5 = require('md5-node');
-
-const COOKIE_KEY = "ydcd";
-
 /*************** 自动抓包 ***************/
 if (typeof $request !== "undefined") {
 
-  (() => {
+  const cookie =
+    $request.headers["Cookie"] ||
+    $request.headers["cookie"];
 
-    try {
+  if (cookie) {
 
-      const cookie =
-        $request.headers["Cookie"] ||
-        $request.headers["cookie"];
+    const data = JSON.stringify({
+      ck: cookie
+    });
 
-      if (!cookie) {
-        console.log("未获取到Cookie");
-        return;
-      }
+    $prefs.setValueForKey(data, "ydcd");
 
-      const data = JSON.stringify({
-        ck: cookie
-      });
+    $notify(
+      "有道词典",
+      "自动抓包成功",
+      "Cookie已写入圈X"
+    );
 
-      $.setdata(data, COOKIE_KEY);
+    console.log(cookie);
 
-      $.msg(
-        "有道词典",
-        "自动抓包成功",
-        "Cookie已写入圈X"
-      );
-
-      console.log("Cookie写入成功");
-
-    } catch (e) {
-
-      console.log(e);
-
-    }
-
-  })();
+  }
 
   $done({});
 }
+
+/***************
+下面再放你的原始脚本
+不要改
+直接完整接上
+***************/
