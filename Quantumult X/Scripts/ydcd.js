@@ -35,9 +35,11 @@ if (typeof $request !== "undefined") {
 
     if (cookie) {
 
-      const data = JSON.stringify({
-        ck: cookie
-      });
+      // 关键修复
+      // 原脚本需要 ck=xxx 格式
+      // 不能存 JSON
+
+      const data = `ck=${cookie}`;
 
       $prefs.setValueForKey(data, "ydcd");
 
