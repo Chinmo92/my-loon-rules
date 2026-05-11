@@ -1,7 +1,7 @@
-#!name=小熊拦截 3.1.0 去更新
+#!name=小熊拦截去更新
 #!desc=移除更新弹窗
 #!tag=工具
-#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/Toolbox.png
+#!icon=https://raw.githubusercontent.com/Chinmo92/iOSRuleScript/main/App_icon/xxlj.png
 
 [Rewrite]
 ^https:\/\/spamblocker-api\.zeekstudio\.com\/profile url reject-dict
