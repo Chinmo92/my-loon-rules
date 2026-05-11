@@ -1,3 +1,70 @@
+/******************************
+
+[rewrite_local]
+
+# 有道词典 自动抓包
+^https:\/\/dict\.youdao\.com\/.* url script-request-header https://raw.githubusercontent.com/Chinmo92/iOSRuleScript/main/Quantumult%20X/Scripts/ydcd.js
+
+[task_local]
+
+0 0,9 * * * https://raw.githubusercontent.com/Chinmo92/iOSRuleScript/main/Quantumult%20X/Scripts/ydcd.js, tag=有道词典
+
+[mitm]
+
+hostname = dict.youdao.com
+
+******************************/
+
+/*************** 自动抓包 ***************/
+if (typeof $request !== "undefined") {
+
+  const oldCookie = $prefs.valueForKey("ydcd");
+
+  // 已抓取则停止
+  if (oldCookie) {
+
+    console.log("有道词典: 已存在Cookie，停止抓取");
+
+    $done({});
+
+  } else {
+
+    const cookie =
+      $request.headers["Cookie"] ||
+      $request.headers["cookie"];
+
+    if (cookie) {
+
+      const data = JSON.stringify({
+        ck: cookie
+      });
+
+      $prefs.setValueForKey(data, "ydcd");
+
+      $notify(
+        "有道词典",
+        "首次自动抓包成功",
+        "已自动停止后续抓取"
+      );
+
+      console.log("Cookie写入成功");
+
+    } else {
+
+      console.log("未获取到Cookie");
+
+    }
+
+    $done({});
+  }
+}
+
+/***************
+下面接原脚本
+不要删除
+直接粘贴你的原混淆代码
+***************/
+
 /*
 目标:  有道词典  #自带提现，需提现绑定过微信
 
@@ -13,7 +80,7 @@ const md5 = require('md5-node');    //引入md5-node
 let envSplitor = ['\n']  //多账号隔开方式，默认换行可自定义
 
 /////////////////////自定义参数(未免黑号自行替换)/////////////////////
-let money = '10'              //默认提现额度
+let money = '1'              //默认提现额度
 let yduuid = '59feab63ade9064ad6ee7d04493a67b0'     //uid
 let model = 'iPhone15,2'        //设备型号
 let os = 'iPhone'                //设备标识
